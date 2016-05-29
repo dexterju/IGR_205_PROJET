@@ -1,16 +1,39 @@
+// loading module
+var fs = require('fs');
+
+var d3 = require("d3"),
+    jsdom = require("jsdom");
+
+var document = jsdom.jsdom(),
+    p = d3.select(document.body).append("p");
+
+
 // Vars to set with the GUI
 var w = 80; //Width available for 1 column
 var h = 20; //Height of 1 line
-var rate = 100; //Rate of missing values. Ex : 20 for 20%
-var file = "data/flowers.csv"; //Path of the file to process
 //////////////////////////////
 
-var svg;
+
 var dataset = [];
 var datasetMV = [];
 
-d3.csv(file)
-    .row(function(d, i) {
+function generate() {
+    p.selectAll('p').remove();
+    datasetMV = [];
+    file = document.querySelector('#fileDialog').value
+    random_state = document.querySelector('#randomState').value
+    rate = document.querySelector('#rate').value
+    load_file(file, random_state, rate)
+
+
+}
+
+
+function load_file(file, random_state, rate) {
+    // body...
+
+    var csvData = d3.csv.parse(fs.readFileSync(file, { encoding: 'utf-8' }).trim());
+    var data = csvData.slice(0, 200).map(function(d) {
         return {
             sepalLength: +d["sepal length"],
             sepalWidth: +d["sepal width"],
@@ -18,27 +41,19 @@ d3.csv(file)
             petalWidth: +d["petal width"],
             species: d["species"]
         };
+
     })
-    .get(function(error, rows) {
-        console.log("Loaded " + rows.length + " rows");
+    generateMissingValue(data, random_state, rate);
+    display(datasetMV);
 
-        if (rows.length > 0) {
-            dataset = rows; //Store the data
-            svg = d3.select("body")
-                .append("svg")
-                .attr("width", Object.keys(rows[0]).length * w)
-                .attr("height", (rows.length * h) + 40);
-            generateMissingValue(dataset);
-            display(datasetMV);
-        }
 
-    });
+}
 
-function generateMissingValue(data) {
+function generateMissingValue(data, random_state, rate) {
     datasetMV = data;
     for (var x = 0; x < data.length; x++) {
-        if ((Math.floor(Math.random() * 100) + 1) > (100 - rate)) {
-            switch (Math.floor(Math.random() * 5) + 1) { //Choose a column randomly
+        if ((Math.floor(Math.random(random_state) * 100) + 1) > (100 - rate)) {
+            switch (Math.floor(Math.random(random_state) * 5) + 1) { //Choose a column randomly
                 case 1:
                     datasetMV[x].sepalLength = "NaN";
                     break;
@@ -60,10 +75,10 @@ function generateMissingValue(data) {
 }
 
 function display(data) {
-    svg.selectAll("p")
+    p.selectAll("p")
         .data(data)
         .enter()
-        .append("text")
+        .append("p")
         .text(function(d, i, j) {
             return (d.sepalLength + " | " + d.sepalWidth + " | " + d.petalLength + " | " + d.petalWidth + " | " + d.species + '\n');
         })
@@ -71,7 +86,17 @@ function display(data) {
         .attr("y", function(d, i, j) {
             return (i * 20) + 40;
         })
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "15px")
-        .attr("fill", "black");
+
 }
+
+function saveFile(name) {
+    var chooser = document.querySelector(name);
+    chooser.addEventListener("change", function(evt) {
+        fs.writeFile(this.value + ".csv", d3.csv.format(datasetMV), function(err) {
+            alert("Export successfully");
+        });
+    }, false);
+    ß
+}
+
+saveFile('#saveFile');
