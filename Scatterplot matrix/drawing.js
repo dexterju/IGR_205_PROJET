@@ -101,7 +101,7 @@ d3.csv("flowers.csv", function(error, data) {
         .attr("cy", function(d) { return y(d[p.y]); })
         .attr("r", 4)
         .style("fill", function(d) { return color(d.species); })
-          .on("mouseover",function(d){
+        .on("mouseover",function(d){
           div.transition()
            .duration(200)
            .style("background-color",color(d.species))
