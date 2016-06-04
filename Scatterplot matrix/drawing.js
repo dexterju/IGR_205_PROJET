@@ -40,7 +40,11 @@ d3.csv("flowers.csv", function(error, data) {
       .on("brushstart", brushstart)
       .on("brush", brushmove)
       .on("brushend", brushend);
-
+      
+   var div = d3.select("body").append("div")
+     .attr("class", "tooltip")
+     .style("opacity", 0);
+     
   var svg = d3.select("body").append("svg")
       .attr("width", size * n + padding)
       .attr("height", size * n + padding)
@@ -96,7 +100,22 @@ d3.csv("flowers.csv", function(error, data) {
         .attr("cx", function(d) { return x(d[p.x]); })
         .attr("cy", function(d) { return y(d[p.y]); })
         .attr("r", 4)
-        .style("fill", function(d) { return color(d.species); });
+        .style("fill", function(d) { return color(d.species); })
+        .on("mouseover",function(d){
+          div.transition()
+           .duration(200)
+           .style("background-color",color(d.species))
+           .style("opacity", .7);
+          div.html(d.species)
+           .style("left", (d3.event.pageX) + "px")
+           .style("top", (d3.event.pageY - 28) + "px");
+       })
+       .on("mouseout", function(d) {
+          div.transition()
+             .duration(500)
+             .style("opacity", 0);
+        });
+
   }
 
   var brushCell;
