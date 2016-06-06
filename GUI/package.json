@@ -1,0 +1,13 @@
+{
+    "name": "datagenerator",
+    "main": "index.html",
+    "window": {
+        "toolbar": true
+    },
+    "dependencies": {
+        "d3": "latest",
+        "jsdom": "latest"
+    }
+
+
+}

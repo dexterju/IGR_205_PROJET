@@ -3,6 +3,7 @@ var w = 80; //Width available for 1 column
 var h = 20; //Height of 1 line
 var rate = 20; //Rate of missing values. Ex : 20 for 20%
 var file = "data/flowers.csv"; //Path of the file to process
+//var file = "data/france_sample.csv";
 //////////////////////////////
 
 var svg;
@@ -50,11 +51,16 @@ function generateMissingValue(data) {
 	
 	for (var x = 0; x < data.length; x++) {
 		
-		if ((Math.floor(Math.random() * 100) + 1)  > (100 - rate)) {
-
-			datasetMV[x][keysArray[Math.floor(Math.random() * (keysArray.length - 1)) + 1]] = "NaN";
+		for (var y = 1; y < keysArray.length; y++) { //On ne prend pas en compte l'id
+			
+			if ((Math.floor(Math.random() * 100) + 1)  > (100 - rate)) {
+				
+				datasetMV[x][keysArray[y]] = "NaN";
+				
+			}
 			
 		}
+	
 	}
 }
 	
