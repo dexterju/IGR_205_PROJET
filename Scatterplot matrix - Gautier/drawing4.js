@@ -105,6 +105,8 @@ d3.csv("flowers_not_random.csv", function(error, data) {
         .attr("width", size - padding)
         .attr("height", size - padding);
 
+    // POLYLINE INIT
+
     var reglage = 50;
 
     var px = +((d3.max(domainByTrait[p.x])-d3.min(domainByTrait[p.x]))/reglage).toFixed(12);
@@ -121,6 +123,8 @@ d3.csv("flowers_not_random.csv", function(error, data) {
 
     var pxPoints = [];
     var pyPoints = [];
+
+    // END POLYLINE INIT
     
 
     
@@ -134,6 +138,8 @@ d3.csv("flowers_not_random.csv", function(error, data) {
           if (isNaN(d[p.x])===false){
               return x(d[p.x]);
           } else{
+
+              //FOR POLYLINE
               for (var i = d3.min(domainByTrait[p.y]); i < d3.max(domainByTrait[p.y]);i=+(i+py).toFixed(12)){
                 if(isNaN(d[p.y])===false){
                   if (i <= d[p.y] && d[p.y] < +(i+py).toFixed(12)){
@@ -142,6 +148,7 @@ d3.csv("flowers_not_random.csv", function(error, data) {
                   }
                 }
               }
+              //END FOR POLYLINE
               return x(0);
           }
         })
@@ -149,6 +156,8 @@ d3.csv("flowers_not_random.csv", function(error, data) {
          if (isNaN(d[p.y])===false){
               return y(d[p.y]);
           } else{
+
+              //FOR POLYLINE
               for (var i = d3.min(domainByTrait[p.x]); i < d3.max(domainByTrait[p.x]);i=+(i+px).toFixed(12)){
                 if(isNaN(d[p.x])===false){
                   if (i <= d[p.x] && d[p.x] < +(i+px).toFixed(12)){console
@@ -159,6 +168,7 @@ d3.csv("flowers_not_random.csv", function(error, data) {
                   }
                 }
               }
+              //END FOR POLYLINE
               return y(0);
           }
         })
@@ -183,6 +193,8 @@ d3.csv("flowers_not_random.csv", function(error, data) {
       }
 
     cell.selectAll("circle[r=\"3\"]").attr("r",z(dispSize));
+
+    //DRAW POLYLINE
 
     var z1 = d3.scale.linear()
     .domain([0,tot/2])
@@ -228,47 +240,9 @@ d3.csv("flowers_not_random.csv", function(error, data) {
         .attr("stroke-width",2)
         .attr("fill","none");
 
-    //arrow variables
+    //END DRAW POLYLINE
+
     
-    /*
-    circles.append("line")
-            .attr("x1", function(d) {
-              if (isNaN(d[p.x])===false){
-                return x(d[p.x])-z(dispSize);
-              } else if (isNaN(d[p.x]) || isNaN(d[p.y])){
-                return 0;
-              }
-            })
-            .attr("y1", function(d) {
-              if (isNaN(d[p.x]) || isNaN(d[p.y])){
-                return 0;
-              } else{
-                return y(d[p.y]);
-              }
-            })
-            .attr("x2", function(d) {
-              if (isNaN(d[p.x])===false){
-                return x(d[p.x])-(2*z(dispSize));
-              } else if (isNaN(d[p.x]) || isNaN(d[p.y])){
-                return 0;
-              }
-            })
-            .attr("y2", function(d) {
-              if (isNaN(d[p.x]) || isNaN(d[p.y])){
-                return 0;
-              } else{
-                return y(d[p.y]);
-              }
-            })
-            .attr("stroke-width", function(d){
-              if (isNaN(d[p.x]) || isNaN(d[p.y])){
-                return 0;
-              } else{
-                return 2;
-              }
-            })
-            .attr("stroke", function(d) { return color(d.species); });
-            */
     
 
 
