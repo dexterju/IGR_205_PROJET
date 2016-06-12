@@ -41,13 +41,19 @@ function generateRandom() {
             console.log(datasetMV);
 
             var textResult = "";
-            
-			for (var u = 0; u < datasetMV.length; u++) {
-				for (var k = 1; k < keysArray.length; k++) { //On n'affiche pas l'id
-					textResult += datasetMV[u][keysArray[k]] + ",";
-				}
-			}
-			
+
+            for (var v = 1; v < keysArray.length - 1; v++) {
+                textResult += keysArray[v] + ",";
+            }
+            textResult += keysArray[keysArray.length - 1] + "\n";
+
+            for (var u = 0; u < datasetMV.length; u++) {
+                for (var k = 1; k < keysArray.length - 1; k++) { //On n'affiche pas l'id
+                    textResult += datasetMV[u][keysArray[k]] + ",";
+                }
+                textResult += datasetMV[u][keysArray[keysArray.length - 1]] + "\n";
+            }
+
             display(datasetMV);
             makeFileRandom(textResult);
         }
@@ -139,17 +145,24 @@ function generateNotRandom() {
                 .attr("height", (dataset.length * h) + 40);
             generateMissingValueNotRandomly(dataset);
             console.log(datasetMV);
-			
-			var textResult = "";
-            
-			for (var u = 0; u < datasetMV.length; u++) {
-				for (var k = 1; k < keysArray.length; k++) { //On n'affiche pas l'id
-					textResult += datasetMV[u][keysArray[k]] + ",";
-				}
-			}
-			
+
+            var textResult = "";
+
+            for (var v = 1; v < keysArray.length - 1; v++) {
+                textResult += keysArray[v] + ",";
+            }
+            textResult += keysArray[keysArray.length - 1] + "\n";
+
+            for (var u = 0; u < datasetMV.length; u++) {
+                for (var k = 1; k < keysArray.length - 1; k++) { //On n'affiche pas l'id
+                    textResult += datasetMV[u][keysArray[k]] + ",";
+                }
+                textResult += datasetMV[u][keysArray[keysArray.length - 1]] + "\n";
+            }
+
+
             display(datasetMV);
-			makeFileNotRandom(textResult);
+            makeFileNotRandom(textResult);
         }
 
     });
@@ -207,8 +220,8 @@ function generateNotRandom() {
 }
 
 function makeFileRandom(texte) {
-	
-	console.log("makefile: " + texte);
+
+    console.log("makefile: " + texte);
 
     var textFile = null;
 
@@ -225,8 +238,8 @@ function makeFileRandom(texte) {
 }
 
 function makeFileNotRandom(texte) {
-	
-	console.log("makefile: " + texte);
+
+    console.log("makefile: " + texte);
 
     var textFile = null;
 
