@@ -366,15 +366,14 @@ d3.csv("data_generated.csv", function(error, data) {
 
 
     function zoomed() {
-        // alert("test");
 
-        // d3.select(this).attr("transform", "scale(" + 3 + ")");
         var clickedCell = this;
-        console.log(d3.select(this))
+        x = (d3.transform(d3.select(this).attr("transform")).translate[0] / size) * (size * 4) // get position of this element
+        y = (d3.transform(d3.select(this).attr("transform")).translate[1] / size) * (size * 4)
         d3.selectAll(".cell").each(function() {
             var currCell = this;
-            var rect = this.getBoundingClientRect() // html element
-            svg_zoom.attr("transform", "translate(" + (-rect.left) + "," + (-rect.top) + ")scale(3.0)")
+            // var rect = this.getBoundingClientRect() // html element
+            svg_zoom.attr("transform", "translate(" + (-x) + "," + (-y) + ")scale(4.0)")
             d3.select(this).attr("id", function() {
                 return (currCell === clickedCell) ? "toZoom" : null;
             });
