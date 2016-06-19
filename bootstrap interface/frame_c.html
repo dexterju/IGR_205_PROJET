@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>IGR205 - Project</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/tabs.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="tabs.js"></script>
+</head>
+
+
+    <div id="tabs-container">
+        <ul class="tabs-menu">
+            <li class="current"><a href="#tab-1">Settings</a></li>
+            <li><a href="#tab-2">Generate MV randomly</a></li>
+            <li><a href="#tab-3">Generate MV not randomly</a></li>
+            <li><a href="#tab-4">About</a></li>
+        </ul>
+        <div class="tab">
+            <div id="tab-1" class="tab-content">
+
+                <button type="button">Matrix1</button>
+                <button type="button">Matrix2</button>
+                <button type="button">Matrix3</button>
+                <button type="button">missingnessmap</button>
+            </div>
+            <div id="tab-2" class="tab-content">
+                <p>
+                    <p>
+                        Select a file to process:
+                        <input accept=".csv" id="fileRandom" type="file" />
+                    </p>
+                    <p>
+                        Type in the percentage of the missing data:
+                        <input type="number" id="rate" min="1" max="100">
+                    </p>
+                    <input type="button" value="Generate" onclick="generateRandom()">
+					<a download="result.csv" id="downloadlinkrandom" style="display: none">Download</a>
+                </p>
+            </div>
+            <div id="tab-3" class="tab-content">
+                <p>
+                    <p>
+                        Select a file to process (numbers files only):
+                        <input accept=".csv" id="fileNotRandom" type="file" />
+                    </p>
+                    <input type="button" value="Generate" onclick="generateNotRandom()">
+					<a download="result.csv" id="downloadlinknotrandom" style="display: none">Download</a>
+                </p>
+            </div>
+            <div id="tab-4" class="tab-content">
+                <p>IGR 205 Project - Names</p>
+            </div>
+        </div>
+    </div>
+
+	<div id="display_svg">
+	</div>
+
+
+<script type="text/javascript" src="js/d3.js"></script>
+<script type="text/javascript" src="js/mv_generation.js"></script>
+
+</html>
