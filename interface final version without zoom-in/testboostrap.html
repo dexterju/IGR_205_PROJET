@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="d3.js"></script>
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <title>Bootstrap, igr 205</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script type="text/javascript" src="tabs.js"></script>
+    <link rel="stylesheet" href="tabs.css">
+    <link rel="stylesheet" href="barchar.css">
+    <script src="missingmap.js"></script>
+    <script src="barchar.js"></script>
+    <script src="matrix1.js"></script>
+    <script src="matrix2.js"></script>
+    <!-- Le styles -->
+    <link href="/bootstrap interface/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+    <link href="/bootstrap interface/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Project introduction</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#"><i class="icon-home icon-white"></i>Home</a></li>
+              <li><a href="#help"><i class="icon-question-sign icon-white"></i>Help</a></li>
+              <li><a href="#about"><i class="icon-info-sign icon-white"></i>About</a></li>
+              <li><a href="#contact"><i class="icon-user icon-white"></i>Contact us</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="container">
+  <div class="row">
+
+  <!--- - - - - - - - -  Matrix on the lef- - - - - - - - - - --->
+  <div id=matrix class="span6" style="background-color: #F2F2F2;height:500px;">
+    <p>Matrix </p>
+    <script>
+     var div_g=false;
+     matrix1();
+    </script>
+  </div>
+
+
+
+  <!--- - - - - - - - -  overview on the left- - - - - - - - - - --->
+  <div id=overview class="span6" style="background-color: #F2F2F2;height:500px;">
+    <p>zoom or overview</p>
+
+    <script>
+    var div_d=false;
+    barchart();
+    </script>
+
+  </div>
+ </div>
+
+  <div><p></p></div>
+
+<!--- - - - - - - -set and  generate the data - - - - -------------------->
+    <div id="tabs-container" style="background-color: #F2F2F2;height:100px;">
+        <ul class="tabs-menu">
+            <li class="current"><a href="#tab-1">Settings</a></li>
+            <li><a href="#tab-2">Generate MV randomly</a></li>
+            <li><a href="#tab-3">Generate MV not randomly</a></li>
+            <li><a href="#tab-4">About</a></li>
+        </ul>
+        <div class="tab">
+            <div id="tab-1" class="tab-content">
+
+                <button id=m1 type="button" onclick="matrix1()">Matrix1</button>
+                <button id=m2 type="button" onclick="matrix2()">Matrix2</button>
+                <button id=ov1 type="button" onclick="barchart()">barchart</button>
+                <button id=ov2 type="button" onclick="missing()">missingnessmap</button>
+            </div>
+
+            <div id="tab-2" class="tab-content">
+                <p>
+                    <p>
+                        Select a file to process:
+                        <input accept=".csv" id="fileRandom" type="file" />
+                    </p>
+                    <p>
+                        Type in the percentage of the missing data:
+                        <input type="number" id="rate" min="1" max="100">
+                    </p>
+                    <input type="button" value="Generate" onclick="generateRandom()">
+          <a download="result.csv" id="downloadlinkrandom" style="display: none">Download</a>
+                </p>
+            </div>
+            <div id="tab-3" class="tab-content">
+                <p>
+                    <p>
+                        Select a file to process (numbers files only):
+                        <input accept=".csv" id="fileNotRandom" type="file" />
+                    </p>
+                    <input type="button" value="Generate" onclick="generateNotRandom()">
+          <a download="result.csv" id="downloadlinknotrandom" style="display: none">Download</a>
+                </p>
+            </div>
+            <div id="tab-4" class="tab-content">
+                <p>IGR 205 Project - Names</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <section id="help" class="section dark"style="height:700px">
+         <div class="container animated hiding" data-animation="fadeInDown">
+           <div style="height:30px">
+           <!-- <h1>eee </h1> -->
+         </div>
+          <h1> Do you need help?</h1>
+          <h4> Left zone is for the different types of sctterplot matrix </h4>
+          <p>We provide you two versions of matrix, you can click the button <button>matrix1</button>or<button>matrix2</button>
+          to see them</p>
+          <h4> Right zone is for the  details of every plot and you can take a look at the overview of data </h4>
+          <p>We provide two methodes of overview: barchart to present quantitatively the missing values,"missingness map" to show the distrbution of missing
+            values, you can click the button <button>barchart</button>or<button>missingmap</button>
+          to see them</p>
+          <p> when you click the cell of matrix, you can see a zoom-in image in the right area:</p>
+          <div>
+          <img src="zoom.png" style="Width: 400px"></img>
+          <div>
+         </div>
+
+</section>
+
+<section id="about" class="section dark" style="height:700px">
+        <div class="container animated hiding" data-animation="fadeInDown">
+          <div style="height:30px">
+          <!-- <h1>eee </h1> -->
+        </div>
+         <h1> This is a IGR project</h1>
+        </div>
+</section>
+
+<section id="contact" class="section dark"style="height:600px">
+        <div class="container animated hiding" data-animation="fadeInDown">
+          <div style="height:30px">
+          <!-- <h1>eee </h1> -->
+        </div>
+        <div class="panel panel-default" style="height:50">
+        <h1></h1>
+      </div>
+        <center><span class="label label-primary"><h1> We are Anonymous...</h1></span></center>
+        </div>
+</section>
+
+<div style="background-color:#F2F2F2;height:50px;">
+<footer class="footer light inverted" style="background-color:#F2F2F2">
+    <p> &copy; igr projet205 june 2016</p>
+</footer>
+</div>
+
+  </body>
+</html>
