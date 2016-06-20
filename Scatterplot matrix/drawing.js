@@ -1,5 +1,6 @@
 function
- zoomed() {
+zoom
+ed() {
 
     if (alreadyZoomed) {
         reset(this)
@@ -33,12 +34,12 @@ var y = d3.scale.linear()
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
-    .ticks(6);
+    .ticks(2);
 
 var yAxis = d3.svg.axis()
     .scale(y)
     .orient("left")
-    .ticks(6);
+    .ticks(2);
 
 var color = d3.scale.category10();
 

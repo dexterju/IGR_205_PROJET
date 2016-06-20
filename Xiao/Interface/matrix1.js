@@ -1,15 +1,3 @@
-// function clone_selection(object, i) {
-//     for (j = 0; j < i; j++) {
-//         // Here's the solution:
-//         cloned_obj = svg_zoom.append("use")
-//             .attr("xlink:href", "#" + object.attr("id"));
-//     }
-// }
-
-// clone_selection(circle, 5);
-// 
-
-
 var width = 460,
     size = 115,
     padding = 19.5;
@@ -76,6 +64,7 @@ d3.csv("data_generated.csv", function(error, data) {
         .attr("height", size * n + padding)
         .append("g")
         .attr("transform", "translate(" + padding + "," + padding / 2 + ")");
+
     var svg_zoom = d3.select("body").append("svg")
         .attr("width", size * n + padding)
         .attr("height", size * n + padding)
@@ -377,6 +366,11 @@ d3.csv("data_generated.csv", function(error, data) {
             d3.select(this).attr("id", function() {
                 return (currCell === clickedCell) ? "toZoom" : null;
             });
+            selectAll(".x.axis").each(function() {
+                console.log(d3.transform(d3.select(this).attr("transform")).translate[0]);
+                console.log(d3.transform(d3.select(this).attr("transform")).translate[1]);
+
+            })
         });
 
     }
