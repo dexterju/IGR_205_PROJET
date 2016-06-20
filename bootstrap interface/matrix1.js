@@ -147,14 +147,14 @@ function initial() {
         // Highlight the selected circles.
         function brushmove(p) {
             var e = brush.extent();
-            svg.selectAll("circle").classed("hidden", function(d) {
+            svg.selectAll("circle").classed("hidden_circle", function(d) {
                 return e[0][0] > d[p.x] || d[p.x] > e[1][0] || e[0][1] > d[p.y] || d[p.y] > e[1][1];
             });
         }
 
         // If the brush is empty, select all circles.
         function brushend() {
-            if (brush.empty()) svg.selectAll(".hidden").classed("hidden", false);
+            if (brush.empty()) svg.selectAll(".hidden_circle").classed("hidden_circle", false);
         }
 
         function zoomed() {
@@ -162,7 +162,7 @@ function initial() {
             console.log("click!")
             var clickedCell = this;
             console.log("x:" + d3.transform(d3.select(this).attr("transform")).translate[0])
-            x = (d3.transform(d3.select(this).attr("transform")).translate[0] / size) * (size * 4) // get position of this element
+            x = (d3.transform(d3.select(this).attr("transform")).translate[0] / size) * (size * 4) + padding / 2 // get position of this element
             y = (d3.transform(d3.select(this).attr("transform")).translate[1] / size) * (size * 4)
             d3.selectAll(".cell").each(function() {
                 var currCell = this;
@@ -194,18 +194,18 @@ function initial() {
             var xAxis = d3.svg.axis()
                 .scale(x)
                 .orient("bottom")
-                .innerTickSize(size)
-                .outerTickSize(1)
-                .tickPadding(10)
-                .ticks(3);
+                .innerTickSize(size - padding / 2)
+                .outerTickSize(0)
+                .tickPadding(0)
+                .ticks(4);
 
             var yAxis = d3.svg.axis()
                 .scale(y)
                 .orient("left")
-                .innerTickSize(-size)
-                .outerTickSize(1)
-                .tickPadding(10)
-                .ticks(3);
+                .innerTickSize(-size + padding / 2)
+                .outerTickSize(0)
+                .tickPadding(0)
+                .ticks(4);
 
 
             x.domain(domainByTrait[p.x]);
@@ -217,7 +217,7 @@ function initial() {
 
             cell.append("g")
                 .attr("class", "y axis")
-                .attr("transform", "translate(" + padding + " ,0)")
+                .attr("transform", "translate(" + padding / 2 + " ,0)")
                 // .style("fill", "red")
                 .call(yAxis);
 
