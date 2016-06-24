@@ -352,86 +352,64 @@ function initial() {
 
             //DRAW POLYLINE
 
-            var z1 = d3.scale.linear()
-                .domain([0, tot / 5])
-                .range([0, 100]);
+            var hauteurReg = padding/2;
+            var max= [];
+            max.push(d3.max(pxData));
+            max.push(d3.max(pyData));
 
+    var z1 = d3.scale.linear()
+    .domain([0,d3.max(max)])
+    .range([0,hauteurReg]);
 
+    var z2 = d3.scale.linear()
+                        .domain([0, d3.max(pxData)])
+                        .range([0,hauteurReg]);
 
-            for (var i = d3.min(domainByTrait[p.x]); i < d3.max(domainByTrait[p.x]); i = +(i + px).toFixed(12)) {
-                var j = +(i + px).toFixed(12);
-                var ii = Math.floor(+((i - d3.min(domainByTrait[p.x])) / px).toFixed(12))
-                pxPoints.push({ "x": x((i + j) / 2), "y": -(z1(pxData[ii]) - padding / 2) });
+    var z3 = d3.scale.linear()
+                        .domain([0, d3.max(pyData)])
+                        .range([0,hauteurReg]);
 
-            }
-            for (var i = d3.min(domainByTrait[p.y]); i < d3.max(domainByTrait[p.y]); i = +(i + py).toFixed(12)) {
-                var j = +(i + py).toFixed(12)
-                var ii = Math.floor(+((i - d3.min(domainByTrait[p.y])) / py).toFixed(12))
-                pyPoints.push({ "x": -(z1(pyData[ii]) - padding / 2), "y": y((i + j) / 2) });
+    
 
-            }
+    for (var i = d3.min(domainByTrait[p.x]); i < d3.max(domainByTrait[p.x]);i=+(i+px).toFixed(12)){
+        var j = +(i+px).toFixed(12);
+        var ii = Math.floor(+((i-d3.min(domainByTrait[p.x]))/px).toFixed(12))
+        pxPoints.push({"x": x((i+j)/2), "y": -(z1(pxData[ii])-padding/2)});
+      
+    }
+    for (var i = d3.min(domainByTrait[p.y]); i < d3.max(domainByTrait[p.y]);i=+(i+py).toFixed(12)){
+        var j = +(i+py).toFixed(12)
+        var ii = Math.floor(+((i-d3.min(domainByTrait[p.y]))/py).toFixed(12))
+        pyPoints.push({"x": -(z1(pyData[ii])-padding/2), "y": y((i+j)/2)});
+      
+    }
 
-            var lineFunction = d3.svg.line()
-                .x(function(d) {
-                    return d.x;
-                })
-                .y(function(d) {
-                    return d.y;
-                })
-                .interpolate("basis");
+    var lineFunction = d3.svg.line()
+                              .x(function(d) { return d.x; })
+                              .y(function(d) { return d.y; })
+                              .interpolate("basis");
+    
+    /*cell.selectAll("circle.redDot").data(pyPoints)
+                                    .enter()
+                                    .append("circle")
+                                    .attr("class", "redDot")
+                                    .attr("cx", function(d){return d.x;})
+                                    .attr("cy", function(d){return d.y;})
+                                    .attr("r", 1);*/
 
-            cell.selectAll("circle.redDot").data(pxPoints)
-                .enter()
-                .append("circle")
-                .attr("class", "redDot")
-                .attr("cx", function(d) {
-                    return d.x;
-                })
-                .attr("cy", function(d) {
-                    return d.y;
-                })
-                .attr("r", 1)
-                .style("fill", "blue")
-                .on("mouseover", function(d) {
-                    div.transition()
-                        .duration(200)
-                        .style("background-color", color(d.species))
-                        .style("opacity", .7);
-                    div.html(d.y)
-                        .style("left", (d3.event.pageX) + "px")
-                        .style("top", (d3.event.pageY - 28) + "px");
-                });
+    cell.append("path")
+        .attr("d", lineFunction(pxPoints))
+        .attr("stroke", "red")
+        .attr("stroke-width",2)
+        .attr("fill","none");
 
+    cell.append("path")
+        .attr("d", lineFunction(pyPoints))
+        .attr("stroke", "red")
+        .attr("stroke-width",2)
+        .attr("fill","none");
 
-            cell.selectAll("circle.redDot2").data(pyPoints)
-                .enter()
-                .append("circle")
-                .attr("class", "redDot")
-                .attr("cx", function(d) {
-                    return d.x;
-                })
-                .attr("cy", function(d) {
-                    return d.y;
-                })
-                .attr("r", 1)
-                .style("fill", "blue")
-                .style("opacity", 0);
-
-            cell.append("path")
-                .attr("d", lineFunction(pxPoints))
-                .attr("stroke", "red")
-                .attr("stroke-width", 1.5)
-                .attr("fill", "none")
-
-
-            cell.append("path")
-                .attr("d", lineFunction(pyPoints))
-                .attr("stroke", "red")
-                .attr("stroke-width", 1.5)
-                .attr("fill", "none")
-                .style("opacity", 0);
-
-            //END DRAW POLYLINE
+    //END DRAW POLYLINE
 
             //  add rect to 
             cell.append("rect")
