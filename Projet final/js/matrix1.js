@@ -407,12 +407,17 @@ function matrix1() {
     div_g = true
 }
 
-// function switchMode() {
-//     modeBrush = !modeBrush;
-//     d3.select("#zone_zoom").remove();
-//     matrix1();
-//     d3.select("#zone").remove();
-//     d3.select(element).selectAll("svg").remove()
+function switchMode() {
+    modeBrush = !modeBrush;
+    d3.select("#zone_zoom").remove();
+    if (m==false){
+        matrix3();
+    }
+    else{
+    matrix1();
+    }
+    d3.select("#zone").remove();
+    d3.select(element).selectAll("svg").remove()
 
 // }
 
