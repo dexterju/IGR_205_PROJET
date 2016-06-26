@@ -98,12 +98,16 @@ function matrix1() {
         }
 
         function brushstart(p) {
+
             if (brushCell !== this) {
+                // zoomed(this)
                 d3.select(brushCell).call(brush.clear());
                 x.domain(domainByTrait[p.x]);
                 y.domain(domainByTrait[p.y]);
                 brushCell = this;
             }
+            zoomed(brushCell)
+
         }
 
         // Highlight the selected circles.
@@ -119,17 +123,18 @@ function matrix1() {
             if (brush.empty()) svg.selectAll(".hidden_circle").classed("hidden_circle", false);
         }
 
-        function zoomed() {
+        function zoomed(clickedCell) {
 
-            console.log("click!")
-            var clickedCell = this;
-            console.log("x:" + d3.transform(d3.select(this).attr("transform")).translate[0])
-            x = (d3.transform(d3.select(this).attr("transform")).translate[0] / size) * (size * 4) + padding / 2 // get position of this element
-            y = (d3.transform(d3.select(this).attr("transform")).translate[1] / size) * (size * 4)
+            console.log("zommed!")
+                // var clickedCell = this
+            console.log("x:" + d3.transform(d3.select(clickedCell).attr("transform")).translate[0])
+            var x_position = (d3.transform(d3.select(clickedCell).attr("transform")).translate[0] / size) * (size * 4) + padding / 2 // get position of this element
+            var y_position = (d3.transform(d3.select(clickedCell).attr("transform")).translate[1] / size) * (size * 4)
             d3.selectAll(".cell").each(function() {
                 var currCell = this;
                 // var rect = this.getBoundingClientRect() // html element
-                svg_zoom.attr("transform", "translate(" + (-x) + "," + (-y) + ")scale(4.0)")
+                svg_zoom
+                    .attr("transform", "translate(" + (-x_position) + "," + (-y_position) + ")scale(4.0)")
                 d3.select(this).attr("id", function() {
                     return (currCell === clickedCell) ? "toZoom" : null;
                 });
@@ -142,7 +147,7 @@ function matrix1() {
 
         function plot(p) {
             var cell = d3.select(this);
-            cell.on("click", zoomed);
+            // cell.on("click", zoomed);
             var tot = 0,
                 pres = 0,
                 abs = 0,
@@ -187,8 +192,8 @@ function matrix1() {
                 .attr("x", padding / 2)
                 .attr("y", padding / 2)
                 .attr("width", size - padding)
-                .attr("height", size - padding)
-                .on("click", zoomed);
+                .attr("height", size - padding);
+            // .on("click", zoomed);
 
             // POLYLINE INIT
             var reglage = 50;
@@ -402,14 +407,14 @@ function matrix1() {
     div_g = true
 }
 
-function switchMode() {
-    modeBrush = !modeBrush;
-    d3.select("#zone_zoom").remove();
-    matrix1();
-    d3.select("#zone").remove();
-    d3.select(element).selectAll("svg").remove()
+// function switchMode() {
+//     modeBrush = !modeBrush;
+//     d3.select("#zone_zoom").remove();
+//     matrix1();
+//     d3.select("#zone").remove();
+//     d3.select(element).selectAll("svg").remove()
 
-}
+// }
 
 // Clear the previously-active brush, if any.
 function remove_brush() {
