@@ -1,0 +1,71 @@
+svg {
+    font: 10px sans-serif;
+    padding: 10px;
+}
+
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
+
+.axis,
+.frame {
+    shape-rendering: crispEdges;
+}
+
+.axis line {
+    stroke: #ddd;
+}
+
+.axis path {
+    display: none;
+}
+
+.cell text {
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.frame {
+    fill: none;
+    stroke: #aaa;
+}
+
+circle {
+    fill-opacity: .7;
+}
+
+circle.hidden_circle {
+    fill: #ccc !important;
+}
+
+.extent {
+    fill: #000;
+    fill-opacity: .125;
+    stroke: #fff;
+}
+
+.redDot {
+    color: red;
+}
+
+.redDot2 {
+    color: red;
+}
+
+.bar rect {
+    fill: none;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
