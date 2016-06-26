@@ -4,6 +4,7 @@ var modeBrush = true;
 var brush;
 
 function matrix3() {
+    m=false;
     var width = 460,
         size = 110,
         padding = 19.5;
@@ -405,7 +406,12 @@ function matrix3() {
 function switchMode() {
     modeBrush = !modeBrush;
     d3.select("#zone_zoom").remove();
+    if(m==true){
+        matrix1();
+    }
+    else{
     matrix3();
+    }
     d3.select("#zone").remove();
     d3.select(element).selectAll("svg").remove()
 
