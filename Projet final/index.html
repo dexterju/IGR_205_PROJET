@@ -15,14 +15,13 @@
     <script type="text/javascript" src="js/matrix1.js"></script>
     <script type="text/javascript" src="js/matrix2.js"></script>
     <script type="text/javascript" src="js/matrix3.js"></script>
-	<script type="text/javascript" src="js/mv_generation.js"></script>
+    <script type="text/javascript" src="js/mv_generation.js"></script>
     <!-- Le styles -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
     <link rel="stylesheet" href="css/barchar.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="css/tabs.css">
-
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="../assets/js/html5shiv.js"></script>
@@ -34,10 +33,10 @@
         <div class="navbar-inner">
             <div class="container">
                 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
                 <a class="brand" href="#">Missing values visualisation</a>
                 <div class="nav-collapse collapse">
                     <ul class="nav">
@@ -50,41 +49,30 @@
             </div>
         </div>
     </div>
-
     <div class="container">
         <div class="row">
-
             <!--- - - - - - - - -  Matrix on the lef- - - - - - - - - - --->
             <div id=matrix class="span6" style="background-color: #F2F2F2;height:500px;">
-
                 <p>Matrix
-                    <input name="switch" type="button" value="Switch mode" onclick="switchMode()" />
                 </p>
                 <script>
-                    var m=true;
-                    var div_g = false;
-                    matrix1();
+                var m = true;
+                var div_g = false;
+                matrix1();
                 </script>
             </div>
-
-
-
             <!--- - - - - - - - -  overview on the left- - - - - - - - - - --->
             <div id=overview class="span6" style="background-color: #F2F2F2;height:500px;">
                 <p>zoom or overview</p>
-
                 <script>
-                    var div_d = false;
-                    barchart();
+                var div_d = false;
+                barchart();
                 </script>
-
             </div>
         </div>
-
         <div>
             <p></p>
         </div>
-
         <!--- - - - - - - -set and  generate the data - - - - -------------------->
         <div id="tabs-container" style="background-color: #F2F2F2;height:100px;">
             <ul class="tabs-menu">
@@ -94,14 +82,12 @@
             </ul>
             <div class="tab">
                 <div id="tab-1" class="tab-content">
-
                     <button id=m1 type="button" onclick="matrix1()">Matrix1</button>
                     <button id=m2 type="button" onclick="matrix2()">Matrix2</button>
                     <button id=m2 type="button" onclick="matrix3()">Matrix3</button>
                     <button id=ov1 type="button" onclick="barchart()">barchart</button>
                     <button id=ov2 type="button" onclick="missing()">missingnessmap</button>
                 </div>
-
                 <div id="tab-2" class="tab-content">
                     <p>
                         <p>
@@ -129,7 +115,6 @@
             </div>
         </div>
     </div>
-
     <section id="help" class="section dark" style="height:700px">
         <div class="container animated hiding" data-animation="fadeInDown">
             <div style="height:30px">
@@ -137,17 +122,19 @@
             </div>
             <h1> Do you need help?</h1>
             <h4> Left zone is for the different types of sctterplot matrix </h4>
-            <p>We provide you two versions of matrix, you can click the button <button>matrix1</button>or<button>matrix2</button> to see them</p>
+            <p>We provide you two versions of matrix, you can click the button
+                <button>matrix1</button>or
+                <button>matrix2</button> to see them</p>
             <h4> Right zone is for the  details of every plot and you can take a look at the overview of data </h4>
-            <p>We provide two methodes of overview: barchart to present quantitatively the missing values,"missingness map" to show the distrbution of missing values, you can click the button <button>barchart</button>or<button>missingmap</button> to see them</p>
+            <p>We provide two methodes of overview: barchart to present quantitatively the missing values,"missingness map" to show the distrbution of missing values, you can click the button
+                <button>barchart</button>or
+                <button>missingmap</button> to see them</p>
             <p> when you click the cell of matrix, you can see a zoom-in image in the right area:</p>
             <div>
                 <img src="img/zoom.png" style="Width: 400px"></img>
                 <div>
                 </div>
-
     </section>
-
     <section id="about" class="section dark" style="height:700px">
         <div class="container animated hiding" data-animation="fadeInDown">
             <div style="height:30px">
@@ -156,7 +143,6 @@
             <h1> This is a IGR project</h1>
         </div>
     </section>
-
     <section id="contact" class="section dark" style="height:600px">
         <div class="container animated hiding" data-animation="fadeInDown">
             <div style="height:30px">
@@ -168,13 +154,11 @@
             <center><span class="label label-primary"><h1> We are Anonymous...</h1></span></center>
         </div>
     </section>
-
     <div style="background-color:#F2F2F2;height:50px;">
         <footer class="footer light inverted" style="background-color:#F2F2F2">
             <p> &copy; IGR 205 Project - June 2016</p>
         </footer>
     </div>
-
 </body>
 
 </html>

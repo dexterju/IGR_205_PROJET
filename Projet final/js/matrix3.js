@@ -4,7 +4,7 @@ var modeBrush = true;
 var brush;
 
 function matrix3() {
-    m=false;
+    m = false;
     var width = 460,
         size = 110,
         padding = 19.5;
@@ -94,17 +94,19 @@ function matrix3() {
                 return d.x;
             });
 
-        if (modeBrush) {
-            cell.call(brush);
-        }
+        cell.call(brush);
 
         function brushstart(p) {
+
             if (brushCell !== this) {
+                // zoomed(this)
                 d3.select(brushCell).call(brush.clear());
                 x.domain(domainByTrait[p.x]);
                 y.domain(domainByTrait[p.y]);
                 brushCell = this;
             }
+            zoomed(brushCell)
+
         }
 
         // Highlight the selected circles.
@@ -120,17 +122,18 @@ function matrix3() {
             if (brush.empty()) svg.selectAll(".hidden_circle").classed("hidden_circle", false);
         }
 
-        function zoomed() {
+        function zoomed(clickedCell) {
 
-            console.log("click!")
-            var clickedCell = this;
-            console.log("x:" + d3.transform(d3.select(this).attr("transform")).translate[0])
-            x = (d3.transform(d3.select(this).attr("transform")).translate[0] / size) * (size * 4) + padding / 2 // get position of this element
-            y = (d3.transform(d3.select(this).attr("transform")).translate[1] / size) * (size * 4)
+            console.log("zommed!")
+                // var clickedCell = this
+            console.log("x:" + d3.transform(d3.select(clickedCell).attr("transform")).translate[0])
+            var x_position = (d3.transform(d3.select(clickedCell).attr("transform")).translate[0] / size) * (size * 3) + padding / 2 // get position of this element
+            var y_position = (d3.transform(d3.select(clickedCell).attr("transform")).translate[1] / size) * (size * 3)
             d3.selectAll(".cell").each(function() {
                 var currCell = this;
                 // var rect = this.getBoundingClientRect() // html element
-                svg_zoom.attr("transform", "translate(" + (-x) + "," + (-y) + ")scale(4.0)")
+                svg_zoom
+                    .attr("transform", "translate(" + (-x_position + 50) + "," + (-y_position + 50) + ")scale(3.0)")
                 d3.select(this).attr("id", function() {
                     return (currCell === clickedCell) ? "toZoom" : null;
                 });
@@ -296,7 +299,7 @@ function matrix3() {
 
 
             if (tot != 0) {
-                dispSize = abs /( tot);
+                dispSize = abs / (tot);
                 console.log(abs)
                     // // console.log(tot)
                     // // console.log(dispSize)
@@ -406,11 +409,10 @@ function matrix3() {
 function switchMode() {
     modeBrush = !modeBrush;
     d3.select("#zone_zoom").remove();
-    if(m==true){
+    if (m == true) {
         matrix1();
-    }
-    else{
-    matrix3();
+    } else {
+        matrix3();
     }
     d3.select("#zone").remove();
     d3.select(element).selectAll("svg").remove()

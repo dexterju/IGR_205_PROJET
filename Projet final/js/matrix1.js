@@ -46,10 +46,10 @@ function matrix1() {
         var div = d3.select(element).append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
-
-        if (div_g == true) {
-            d3.select(element).selectAll("svg").remove();
-        }
+        d3.select(element).selectAll("svg").remove();
+        // if (div_g == true) {
+        //     d3.select(element).selectAll("svg").remove();
+        // }
 
         brush = d3.svg.brush()
             .x(x)
@@ -93,9 +93,8 @@ function matrix1() {
                 return d.x;
             });
 
-        if (modeBrush) {
-            cell.call(brush);
-        }
+
+        cell.call(brush);
 
         function brushstart(p) {
 
@@ -128,13 +127,13 @@ function matrix1() {
             console.log("zommed!")
                 // var clickedCell = this
             console.log("x:" + d3.transform(d3.select(clickedCell).attr("transform")).translate[0])
-            var x_position = (d3.transform(d3.select(clickedCell).attr("transform")).translate[0] / size) * (size * 4) + padding / 2 // get position of this element
-            var y_position = (d3.transform(d3.select(clickedCell).attr("transform")).translate[1] / size) * (size * 4)
+            var x_position = (d3.transform(d3.select(clickedCell).attr("transform")).translate[0] / size) * (size * 3) + padding / 2 // get position of this element
+            var y_position = (d3.transform(d3.select(clickedCell).attr("transform")).translate[1] / size) * (size * 3)
             d3.selectAll(".cell").each(function() {
                 var currCell = this;
                 // var rect = this.getBoundingClientRect() // html element
                 svg_zoom
-                    .attr("transform", "translate(" + (-x_position) + "," + (-y_position) + ")scale(4.0)")
+                    .attr("transform", "translate(" + (-x_position + 50) + "," + (-y_position + 50) + ")scale(3.0)")
                 d3.select(this).attr("id", function() {
                     return (currCell === clickedCell) ? "toZoom" : null;
                 });
@@ -407,17 +406,12 @@ function matrix1() {
     div_g = true
 }
 
-function switchMode() {
-    modeBrush = !modeBrush;
-    d3.select("#zone_zoom").remove();
-    if (m==false){
-        matrix3();
-    }
-    else{
-    matrix1();
-    }
-    d3.select("#zone").remove();
-    d3.select(element).selectAll("svg").remove()
+// function switchMode() {
+//     modeBrush = !modeBrush;
+//     d3.select("#zone_zoom").remove();
+//     matrix1();
+//     d3.select("#zone").remove();
+//     d3.select(element).selectAll("svg").remove()
 
 // }
 
