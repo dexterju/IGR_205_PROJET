@@ -82,7 +82,7 @@ function initial() {
             .attr("width", size * n + padding)
             .attr("height", size * n + padding)
             .append("use").attr("xlink:href", "#toZoom")
-            .attr("transform", "scale(" + 3 + ")");
+            .attr("transform", "scale(" + 2 + ")");
 
         // svg.selectAll(".x.axis")
         //     .data(traits)
